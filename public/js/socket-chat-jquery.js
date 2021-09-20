@@ -68,6 +68,12 @@ function renderizarMensajes(mensaje, yo) {
     var fecha = new Date(mensaje.fecha);
     var hora = fecha.getHours() + ':' + fecha.getMinutes();
 
+    var adminClass = 'info'
+
+    if( mensaje.nombre === 'Administrador' ){
+        adminClass='danger';
+    }
+
     if (yo) {
         html += '<li class="reverse">';
         html +=     '<div class="chat-content">';
@@ -82,10 +88,12 @@ function renderizarMensajes(mensaje, yo) {
 
 
         html += '<li class="animated fadeIn">';
-        html += '<div class="chat-img"> <img src="assets/images/users/1.jpg" alt="user"/> </div>';
+        if( adminClass !== 'danger'  ){
+            html += '<div class="chat-img"> <img src="assets/images/users/1.jpg" alt="user"/> </div>';
+        }
         html += '<div class="chat-content">';
         html += '<h5> ' + mensaje.nombre + ' </h5>';
-        html += '<div class="box bg-light-info">' + mensaje.mensaje + '</div>';
+        html += '<div class="box bg-light-'+adminClass+'">' + mensaje.mensaje + '</div>';
         html += '</div>';
         html += '<div class="chat-time">' + hora + '</div>';
         html += '</li >';

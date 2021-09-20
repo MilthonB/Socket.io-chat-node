@@ -21,6 +21,7 @@ io.on('connection', (client) => {
         let personas = usuarios.agregarPersona(client.id, data.nombre, data.sala);
 
         client.broadcast.to(data.sala).emit('lista-personas', usuarios.getPersonasPorSalas(data.sala));
+        client.broadcast.to(data.sala).emit('crear-mensaje', crearMensaje('Administrador', `${data.nombre} unió `));
 
         callback( usuarios.getPersonasPorSalas(data.sala) );
 
