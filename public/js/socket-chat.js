@@ -16,7 +16,7 @@ let usuario = {
 
 
 socket.on('connect', function () {
-    console.log('Conectado al servidor');
+    console.log('Conectado al servidor', usuario);
 
     socket.emit('entrar-chat', usuario, ( resp  ) => {
         console.log('usuario conectados',resp);
