@@ -42,7 +42,8 @@ socket.on('disconnect', function() {
 
 // Escuchar información
 socket.on('crear-mensaje', function(mensaje) {
-    renderizarMensajes(mensaje, false)
+    renderizarMensajes(mensaje, false);
+    scrollBottom();
 });
 
 // Escuchar cambios de usuarios
