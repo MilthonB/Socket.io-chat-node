@@ -12,11 +12,13 @@ io.on('connection', (client) => {
         if (!data.nombre) {
             return callback({
                 error: true,
-                msg: 'Nombre es necesario'
+                msg: 'Nombre / Sala es necesario'
             });
         }
 
-        let personas = usuarios.agregarPersona(client.id, data.nombre);
+        client.join(data.sala); // creacion de sala 
+
+        let personas = usuarios.agregarPersona(client.id, data.nombre, data.sala);
 
         client.broadcast.emit('lista-personas', usuarios.getPersonas());
 
