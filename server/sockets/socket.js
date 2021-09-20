@@ -44,5 +44,10 @@ io.on('connection', (client) => {
 
     });
 
+    //Mensaje privados
+    client.on('mensaje-privado', data => {
+        let persona = usuarios.getPersona( client.id );
+        client.broadcast.to(data.para).emit('mensaje-privado', crearMensaje( persona.nombre, data.mensaje));
+    })
 
 });
