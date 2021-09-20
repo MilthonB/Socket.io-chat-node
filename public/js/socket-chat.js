@@ -42,7 +42,7 @@ socket.on('disconnect', function() {
 
 // Escuchar información
 socket.on('crear-mensaje', function(mensaje) {
-    console.log('Servidor:', mensaje);
+    renderizarMensajes(mensaje, false)
 });
 
 // Escuchar cambios de usuarios

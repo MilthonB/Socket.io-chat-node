@@ -26,7 +26,7 @@ io.on('connection', (client) => {
 
     });
 
-    client.on('crear-mensaje', (data) => {
+    client.on('crear-mensaje', (data, callback) => {
 
         //otras opcioens 
         let persona = usuarios.getPersona( client.id )
@@ -34,6 +34,8 @@ io.on('connection', (client) => {
         let mensaje = crearMensaje( persona.nombre, data.mensaje );
 
         client.broadcast.to(persona.sala).emit('crear-mensaje', mensaje);
+
+        callback( mensaje );
 
     });
 
