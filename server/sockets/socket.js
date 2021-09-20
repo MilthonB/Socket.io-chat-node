@@ -1,13 +1,12 @@
 const { io } = require('../server');
 
-const {Usuarios} = require('../classes/usuarios');
+const { Usuarios } = require('../classes/usuarios');
 
 const usuarios = new Usuarios();
 
 io.on('connection', (client) => {
 
     client.on('entrar-chat', (data, callback) => {
-        console.log('usuario', data);
 
         if (!data.nombre) {
             return callback({
@@ -16,9 +15,20 @@ io.on('connection', (client) => {
             });
         }
 
-        let personas = usuarios.agregarPersona( client.id, data.nombre );
+        let personas = usuarios.agregarPersona(client.id, data.nombre);
 
-       callback({personas});
+        client.broadcast.emit('lista-personas', usuarios.getPersonas());
+
+        callback({ personas });
+
+    });
+
+    client.on('disconnect', () => {
+        let personBorrada = usuarios.borrarPersona(client.id);
+
+        client.broadcast.emit('crear-mensaje', { usuario: 'administrado', mensaje: `${personBorrada} abandono el chat` });
+
+        client.broadcast.emit('lista-personas', usuarios.getPersonas());
 
     });
 
